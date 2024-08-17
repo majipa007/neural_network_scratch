@@ -2,27 +2,40 @@ from forward_pass import Layer_Dense
 from activation import Activation_RELU, Activation_Softmax
 from loss import Categorical_Cross_Entropy
 from nnfs.datasets import spiral_data
+from functions import *
 import nnfs
 
+#--------------------------initializing the class objects-------------------------------
 nnfs.init()
 relu = Activation_RELU()
 sm = Activation_Softmax()
-dense1 = Layer_Dense(2, 3)
 loss_fuction = Categorical_Cross_Entropy()
 
 
-X, y = spiral_data(samples=100, classes=3)
-print(y.shape)
-var = X.shape
-dense1.forward(X)
-relu.forward(dense1.output[0])
-sm.forward(dense1.output[0])
-print("dense output     ", dense1.output[0])
-print("relu activated   ", relu.output)
-print("softmax activated",sm.output)
-relu.forward(dense1.output)
-sm.forward(dense1.output)
-loss_relu = loss_fuction.calculate(relu.output,y)
-loss_sm = loss_fuction.calculate(sm.output,y)
+#--------------------------defining the network-------------------------------
 
-print("relu:    ",loss_relu,"\nsoftmax: ", loss_sm)
+dense1 = Layer_Dense(2, 126)
+dense2 = Layer_Dense(126, 512)
+dense3 = Layer_Dense(512, 3)
+
+#--------------------------feed forward-------------------------------
+
+
+X, y = spiral_data(samples=10, classes=3)
+dense1.forward(X)
+relu.forward(dense1.output)
+dense2.forward(relu.output)
+relu.forward(dense2.output)
+dense3.forward(relu.output)
+sm.forward(dense3.output)
+
+
+#---------------------------loss and accuracy-------------------------------------
+
+loss = loss_fuction.calculate(sm.output,y)
+acc = accuracy(sm.output, y)
+print("Accuracy", acc)
+print("Loss", loss)
+print("output", sm.output)
+print("truth", y)
+

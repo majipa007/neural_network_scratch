@@ -1,7 +1,7 @@
 from forward_pass import Layer_Dense
 from activation import Activation_RELU, Activation_Softmax
 from loss import Categorical_Cross_Entropy
-from nnfs.datasets import spiral_data
+from nnfs.datasets import spiral_data, vertical_data
 from functions import *
 import nnfs
 
@@ -17,10 +17,12 @@ loss_fuction = Categorical_Cross_Entropy()
 dense1 = Layer_Dense(2, 3)
 dense2 = Layer_Dense(3, 4)
 dense3 = Layer_Dense(4, 3)
-
+    
 #--------------------------initializing values-------------------------------
 
-X, y = spiral_data(samples=10, classes=3)
+X, y = spiral_data(samples=100, classes=3)
+# X, y = vertical_data(samples=100, classes=3)
+
 lowest_loss = 9999999
 best_dense1_weights = dense1.weights.copy()
 best_dense2_weights = dense2.weights.copy()
@@ -31,7 +33,7 @@ best_dense3_biases = dense3.biases.copy()
 
 #--------------------------feed forward-------------------------------
 
-for iteration in range(100000):
+for iteration in range(1000000):
     dense1.weights+=0.05*np.random.randn(2, 3)
     dense2.weights+=0.05*np.random.randn(3, 4)
     dense3.weights+=0.05*np.random.randn(4, 3)
@@ -64,6 +66,7 @@ for iteration in range(100000):
         best_dense2_biases = dense2.biases.copy()
         best_dense3_biases = dense3.biases.copy()
         lowest_loss = loss
+        print(f"update in iteration {iteration}")
         print("Accuracy", acc)
         print("Loss", loss)
     else:

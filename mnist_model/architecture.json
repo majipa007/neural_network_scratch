@@ -1,0 +1,1 @@
+{"input_shape": 784, "layer_types": ["Layer_Dense", "Activation_ReLU", "Layer_Dense", "Activation_Softmax"], "layer_shapes": [{"weights": [784, 128], "biases": [1, 128]}, null, {"weights": [128, 10], "biases": [1, 10]}, null]}

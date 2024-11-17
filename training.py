@@ -90,12 +90,6 @@ def main():
     accuracy = np.mean(predictions == y_test)
     print(f'Test accuracy before saving: {accuracy:.4f}')
 
-    # # Load the model and test again
-    # loaded_model = Model.load('mnist_model')
-    # predictions = loaded_model.predict(X_test)
-    # accuracy = np.mean(predictions == y_test)
-    # print(f'Test accuracy after loading: {accuracy:.4f}')
-
 
 if __name__ == "__main__":
     main()
